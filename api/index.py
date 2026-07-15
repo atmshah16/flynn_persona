@@ -41,7 +41,8 @@ def do_chat(messages):
     return data["choices"][0]["message"]["content"]
 
 
-@app.route("/api/chat", methods=["POST", "OPTIONS"])
+@app.route("/", methods=["POST", "OPTIONS"])
+@app.route("/api/index", methods=["POST", "OPTIONS"])
 def chat():
     if request.method == "OPTIONS":
         return ("", 204)

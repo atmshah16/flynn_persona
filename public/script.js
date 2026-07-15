@@ -41,7 +41,7 @@ chatForm.addEventListener('submit', async (e) => {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 
   try {
-    const res = await fetch('/api/chat', {
+    const res = await fetch('/api/index', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages }),
