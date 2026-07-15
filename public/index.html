@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flynn Rider — A Chat With Rapunzel's Favorite Thief</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scene">
+    <header class="header">
+      <div class="header-emblem">☀</div>
+      <h1>Chatting with Flynn Rider</h1>
+      <p class="subtitle">"This is the story of how I died... just kidding, come talk to me, Blondie."</p>
+    </header>
+
+    <section class="setup-card" id="setupCard">
+      <button id="startBtn">Enter the Kingdom</button>
+      <p class="hint">Your conversation stays in this browser tab and is gone the moment you refresh.</p>
+    </section>
+
+    <section class="chat-card hidden" id="chatCard">
+      <div class="chat-window" id="chatWindow"></div>
+      <form id="chatForm" class="chat-input-row">
+        <input type="text" id="userInput" placeholder="Say something to Flynn..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
