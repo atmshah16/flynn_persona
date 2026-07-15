@@ -1,7 +1,6 @@
-import json
 import os
 import requests
-from http.server import BaseHTTPRequestHandler
+from flask import Flask, request, jsonify
 
 API_KEY = os.environ.get("OPENAI_API_KEY")
 MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
@@ -18,6 +17,9 @@ Personality:
 - Speaks in first person, casual modern-fairytale tone, never breaks character, never mentions being an AI.
 - Keep responses conversational length, not overly long monologues.
 """
+
+app = Flask(__name__)
+
 
 def do_chat(messages):
     payload = {
@@ -39,45 +41,29 @@ def do_chat(messages):
     return data["choices"][0]["message"]["content"]
 
 
-class handler(BaseHTTPRequestHandler):
-    def do_POST(self):
+@app.route("/api/chat", methods=["POST", "OPTIONS"])
+def chat():
+    if request.method == "OPTIONS":
+        return ("", 204)
+
+    body = request.get_json(silent=True) or {}
+    messages = body.get("messages", [])
+
+    if not API_KEY:
+        return jsonify({"error": "Server is missing OPENAI_API_KEY."}), 500
+    if not messages:
+        return jsonify({"error": "Missing messages."}), 400
+
+    try:
+        reply = do_chat(messages)
+        return jsonify({"reply": reply}), 200
+    except requests.HTTPError as e:
+        detail = ""
         try:
-            length = int(self.headers.get("Content-Length", 0))
-            body = json.loads(self.rfile.read(length) or b"{}")
-
-            messages = body.get("messages", [])
-
-            if not API_KEY:
-                self._send(500, {"error": "Server is missing OPENAI_API_KEY."})
-                return
-            if not messages:
-                self._send(400, {"error": "Missing messages."})
-                return
-
-            reply = do_chat(messages)
-            self._send(200, {"reply": reply})
-
-        except requests.HTTPError as e:
-            detail = ""
-            try:
-                detail = e.response.json().get("error", {}).get("message", "")
-            except Exception:
-                pass
-            self._send(e.response.status_code if e.response is not None else 500,
-                       {"error": detail or "LLM API request failed."})
-        except Exception as e:
-            self._send(500, {"error": str(e)})
-
-    def _send(self, status, obj):
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.end_headers()
-        self.wfile.write(json.dumps(obj).encode())
-
-    def do_OPTIONS(self):
-        self.send_response(204)
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.end_headers()
+            detail = e.response.json().get("error", {}).get("message", "")
+        except Exception:
+            pass
+        status = e.response.status_code if e.response is not None else 500
+        return jsonify({"error": detail or "LLM API request failed."}), status
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
