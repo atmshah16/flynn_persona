@@ -8,11 +8,25 @@ const startBtn = document.getElementById('startBtn');
 let messages = [];
 
 function addBubble(text, role) {
+  const row = document.createElement('div');
+  row.className = `bubble-row ${role}`;
+
+  if (role === 'flynn') {
+    const avatar = document.createElement('img');
+    avatar.className = 'bubble-avatar';
+    avatar.src = 'flynn-avatar.svg';
+    avatar.alt = 'Flynn';
+    row.appendChild(avatar);
+  }
+
   const bubble = document.createElement('div');
   bubble.className = `bubble ${role}`;
   bubble.textContent = text;
-  chatWindow.appendChild(bubble);
+  row.appendChild(bubble);
+
+  chatWindow.appendChild(row);
   chatWindow.scrollTop = chatWindow.scrollHeight;
+  return bubble;
 }
 
 startBtn.addEventListener('click', () => {
@@ -34,11 +48,8 @@ chatForm.addEventListener('submit', async (e) => {
   userInput.value = '';
   userInput.disabled = true;
 
-  const thinkingBubble = document.createElement('div');
-  thinkingBubble.className = 'bubble flynn';
-  thinkingBubble.textContent = '...';
-  chatWindow.appendChild(thinkingBubble);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+  const thinkingBubble = addBubble('...', 'flynn');
+  const thinkingRow = thinkingBubble.parentElement;
 
   try {
     const res = await fetch('/api/index', {
@@ -48,7 +59,7 @@ chatForm.addEventListener('submit', async (e) => {
     });
 
     const data = await res.json();
-    thinkingBubble.remove();
+    thinkingRow.remove();
 
     if (!res.ok) {
       addBubble(`(Something went wrong: ${data.error || 'unknown error'})`, 'system');
@@ -57,7 +68,7 @@ chatForm.addEventListener('submit', async (e) => {
       messages.push({ role: 'assistant', content: data.reply });
     }
   } catch (err) {
-    thinkingBubble.remove();
+    thinkingRow.remove();
     addBubble(`(Network error: ${err.message})`, 'system');
   } finally {
     userInput.disabled = false;

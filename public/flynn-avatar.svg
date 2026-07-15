@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="60" cy="60" r="58"/>
+    </clipPath>
+  </defs>
+
+  <circle cx="60" cy="60" r="58" fill="#4b2e5a" stroke="#c9973a" stroke-width="3"/>
+
+  <g clip-path="url(#circleClip)">
+    <rect x="0" y="70" width="120" height="50" fill="#3a1f47"/>
+
+    <!-- neck -->
+    <rect x="48" y="68" width="24" height="16" fill="#d9a066"/>
+
+    <!-- vest / shoulders -->
+    <path d="M20 118 Q30 78 60 78 Q90 78 100 118 Z" fill="#5a2e1c"/>
+    <path d="M42 82 L60 100 L78 82 L78 118 L42 118 Z" fill="#e8ddc7"/>
+
+    <!-- head -->
+    <ellipse cx="60" cy="52" rx="28" ry="30" fill="#d9a066"/>
+
+    <!-- ears -->
+    <ellipse cx="32" cy="54" rx="4" ry="6" fill="#d9a066"/>
+    <ellipse cx="88" cy="54" rx="4" ry="6" fill="#d9a066"/>
+
+    <!-- hair -->
+    <path d="M32 42 Q28 12 60 12 Q92 12 88 42 Q86 20 60 22 Q34 20 32 42 Z" fill="#2b1710"/>
+    <path d="M30 40 Q34 30 42 34 Q36 40 34 48 Z" fill="#2b1710"/>
+    <path d="M90 40 Q86 30 78 34 Q84 40 86 48 Z" fill="#2b1710"/>
+
+    <!-- eyebrows -->
+    <path d="M40 46 Q46 42 52 45" stroke="#2b1710" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M68 45 Q74 41 80 45" stroke="#2b1710" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- eyes -->
+    <ellipse cx="47" cy="54" rx="3.2" ry="4" fill="#2b1710"/>
+    <ellipse cx="73" cy="54" rx="3.2" ry="4" fill="#2b1710"/>
+
+    <!-- smirk -->
+    <path d="M45 68 Q60 76 78 64" stroke="#5a2e1c" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- goatee -->
+    <path d="M50 70 Q60 84 70 70 Q66 78 60 80 Q54 78 50 70 Z" fill="#2b1710"/>
+
+    <!-- sideburn scruff -->
+    <path d="M34 48 Q32 58 38 66" stroke="#2b1710" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+    <path d="M86 48 Q88 58 82 66" stroke="#2b1710" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <circle cx="60" cy="60" r="58" fill="none" stroke="#c9973a" stroke-width="3"/>
+</svg>
