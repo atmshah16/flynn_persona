@@ -14,7 +14,7 @@ function addBubble(text, role) {
   if (role === 'flynn') {
     const avatar = document.createElement('img');
     avatar.className = 'bubble-avatar';
-    avatar.src = 'flynn-avatar.svg';
+    avatar.src = 'flynn.jpg';
     avatar.alt = 'Flynn';
     row.appendChild(avatar);
   }

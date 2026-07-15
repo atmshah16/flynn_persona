@@ -36,7 +36,9 @@ body {
 .header-avatar {
   width: 88px;
   height: 88px;
+  object-fit: cover;
   border-radius: 50%;
+  border: 2px solid var(--gold);
   box-shadow: 0 0 16px rgba(201, 151, 58, 0.6);
 }
 
@@ -132,7 +134,9 @@ body {
 .bubble-avatar {
   width: 32px;
   height: 32px;
+  object-fit: cover;
   border-radius: 50%;
+  border: 1px solid var(--gold);
   flex-shrink: 0;
   box-shadow: 0 0 6px rgba(201, 151, 58, 0.5);
 }
